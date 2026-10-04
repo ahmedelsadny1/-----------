@@ -1,0 +1,53 @@
+{
+  "name": "supermarket-pos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-ready offline-first multi-branch supermarket POS & management system",
+  "author": "Supermarket POS Team",
+  "license": "PROPRIETARY",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev",
+    "dev:desktop": "pnpm --filter @supermarket/desktop dev",
+    "dev:backend": "pnpm --filter @supermarket/backend dev",
+    "dev:admin": "pnpm --filter @supermarket/admin-web dev",
+    "build": "turbo run build",
+    "build:shared": "pnpm --filter @supermarket/shared build",
+    "build:desktop": "pnpm --filter @supermarket/desktop build",
+    "build:backend": "pnpm --filter @supermarket/backend build",
+    "build:admin": "pnpm --filter @supermarket/admin-web build",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,js,jsx,json,md,css}\"",
+    "test": "turbo run test",
+    "test:unit": "turbo run test:unit",
+    "clean": "turbo run clean && rimraf node_modules",
+    "db:migrate": "pnpm --filter @supermarket/backend db:migrate",
+    "db:seed": "pnpm --filter @supermarket/backend db:seed",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "husky": "^9.1.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.3.0",
+    "rimraf": "^6.0.0",
+    "turbo": "^2.1.0",
+    "typescript": "^5.5.0"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md,css}": [
+      "prettier --write"
+    ]
+  },
+  "packageManager": "pnpm@9.12.0"
+}

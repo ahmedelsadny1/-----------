@@ -1,0 +1,330 @@
+// ============================================
+// @supermarket/shared - Constants
+// ============================================
+
+// ---- Permissions ----
+
+export const PERMISSIONS = {
+  // Products
+  PRODUCTS_VIEW: 'products.view',
+  PRODUCTS_CREATE: 'products.create',
+  PRODUCTS_UPDATE: 'products.update',
+  PRODUCTS_DELETE: 'products.delete',
+  PRODUCTS_IMPORT: 'products.import',
+  PRODUCTS_EXPORT: 'products.export',
+
+  // Categories
+  CATEGORIES_VIEW: 'categories.view',
+  CATEGORIES_CREATE: 'categories.create',
+  CATEGORIES_UPDATE: 'categories.update',
+  CATEGORIES_DELETE: 'categories.delete',
+
+  // Inventory
+  INVENTORY_VIEW: 'inventory.view',
+  INVENTORY_ADJUST: 'inventory.adjust',
+  INVENTORY_TRANSFER: 'inventory.transfer',
+  INVENTORY_COUNT: 'inventory.count',
+
+  // Sales
+  SALES_VIEW: 'sales.view',
+  SALES_CREATE: 'sales.create',
+  SALES_CANCEL: 'sales.cancel',
+  SALES_REFUND: 'sales.refund',
+  SALES_DISCOUNT: 'sales.discount',
+  SALES_EXPORT: 'sales.export',
+
+  // Customers
+  CUSTOMERS_VIEW: 'customers.view',
+  CUSTOMERS_CREATE: 'customers.create',
+  CUSTOMERS_UPDATE: 'customers.update',
+  CUSTOMERS_DELETE: 'customers.delete',
+
+  // Suppliers
+  SUPPLIERS_VIEW: 'suppliers.view',
+  SUPPLIERS_CREATE: 'suppliers.create',
+  SUPPLIERS_UPDATE: 'suppliers.update',
+  SUPPLIERS_DELETE: 'suppliers.delete',
+
+  // Purchases
+  PURCHASES_VIEW: 'purchases.view',
+  PURCHASES_CREATE: 'purchases.create',
+  PURCHASES_APPROVE: 'purchases.approve',
+  PURCHASES_RECEIVE: 'purchases.receive',
+
+  // Users
+  USERS_VIEW: 'users.view',
+  USERS_CREATE: 'users.create',
+  USERS_UPDATE: 'users.update',
+  USERS_DISABLE: 'users.disable',
+  USERS_RESET_PASSWORD: 'users.reset_password',
+
+  // Roles
+  ROLES_VIEW: 'roles.view',
+  ROLES_CREATE: 'roles.create',
+  ROLES_UPDATE: 'roles.update',
+  ROLES_DELETE: 'roles.delete',
+
+  // Cash Sessions
+  CASH_SESSIONS_VIEW: 'cash_sessions.view',
+  CASH_SESSIONS_OPEN: 'cash_sessions.open',
+  CASH_SESSIONS_CLOSE: 'cash_sessions.close',
+  CASH_SESSIONS_ADJUST: 'cash_sessions.adjust',
+
+  // Expenses
+  EXPENSES_VIEW: 'expenses.view',
+  EXPENSES_CREATE: 'expenses.create',
+  EXPENSES_UPDATE: 'expenses.update',
+  EXPENSES_DELETE: 'expenses.delete',
+
+  // Reports
+  REPORTS_VIEW: 'reports.view',
+  REPORTS_EXPORT: 'reports.export',
+  REPORTS_FINANCIAL: 'reports.financial',
+
+  // Settings
+  SETTINGS_VIEW: 'settings.view',
+  SETTINGS_UPDATE: 'settings.update',
+  SETTINGS_COMPANY: 'settings.company',
+  SETTINGS_BRANCH: 'settings.branch',
+
+  // Sync
+  SYNC_VIEW: 'sync.view',
+  SYNC_RETRY: 'sync.retry',
+  SYNC_FORCE: 'sync.force',
+
+  // Audit
+  AUDIT_LOGS_VIEW: 'audit_logs.view',
+
+  // Backups
+  BACKUPS_CREATE: 'backups.create',
+  BACKUPS_RESTORE: 'backups.restore',
+  BACKUPS_EXPORT: 'backups.export',
+  BACKUPS_IMPORT: 'backups.import',
+
+  // Devices
+  DEVICES_VIEW: 'devices.view',
+  DEVICES_REGISTER: 'devices.register',
+  DEVICES_DEACTIVATE: 'devices.deactivate',
+} as const;
+
+export type PermissionCode = (typeof PERMISSIONS)[keyof typeof PERMISSIONS];
+
+// ---- Permission Modules ----
+
+export const PERMISSION_MODULES = [
+  'products',
+  'categories',
+  'inventory',
+  'sales',
+  'customers',
+  'suppliers',
+  'purchases',
+  'users',
+  'roles',
+  'cash_sessions',
+  'expenses',
+  'reports',
+  'settings',
+  'sync',
+  'audit_logs',
+  'backups',
+  'devices',
+] as const;
+
+// ---- System Roles ----
+
+export const SYSTEM_ROLES = {
+  SUPER_ADMIN: 'super_admin',
+  COMPANY_ADMIN: 'company_admin',
+  BRANCH_MANAGER: 'branch_manager',
+  INVENTORY_MANAGER: 'inventory_manager',
+  CASHIER: 'cashier',
+  ACCOUNTANT: 'accountant',
+  AUDITOR: 'auditor',
+} as const;
+
+export type SystemRole = (typeof SYSTEM_ROLES)[keyof typeof SYSTEM_ROLES];
+
+// ---- Role → Permission Mapping (Defaults) ----
+
+export const ROLE_DEFAULT_PERMISSIONS: Record<SystemRole, PermissionCode[]> = {
+  [SYSTEM_ROLES.SUPER_ADMIN]: Object.values(PERMISSIONS),
+  [SYSTEM_ROLES.COMPANY_ADMIN]: Object.values(PERMISSIONS),
+  [SYSTEM_ROLES.BRANCH_MANAGER]: [
+    PERMISSIONS.PRODUCTS_VIEW, PERMISSIONS.PRODUCTS_CREATE, PERMISSIONS.PRODUCTS_UPDATE,
+    PERMISSIONS.PRODUCTS_IMPORT, PERMISSIONS.PRODUCTS_EXPORT,
+    PERMISSIONS.CATEGORIES_VIEW, PERMISSIONS.CATEGORIES_CREATE, PERMISSIONS.CATEGORIES_UPDATE,
+    PERMISSIONS.INVENTORY_VIEW, PERMISSIONS.INVENTORY_ADJUST, PERMISSIONS.INVENTORY_TRANSFER, PERMISSIONS.INVENTORY_COUNT,
+    PERMISSIONS.SALES_VIEW, PERMISSIONS.SALES_CREATE, PERMISSIONS.SALES_CANCEL, PERMISSIONS.SALES_REFUND, PERMISSIONS.SALES_DISCOUNT, PERMISSIONS.SALES_EXPORT,
+    PERMISSIONS.CUSTOMERS_VIEW, PERMISSIONS.CUSTOMERS_CREATE, PERMISSIONS.CUSTOMERS_UPDATE,
+    PERMISSIONS.USERS_VIEW,
+    PERMISSIONS.CASH_SESSIONS_VIEW, PERMISSIONS.CASH_SESSIONS_OPEN, PERMISSIONS.CASH_SESSIONS_CLOSE, PERMISSIONS.CASH_SESSIONS_ADJUST,
+    PERMISSIONS.EXPENSES_VIEW, PERMISSIONS.EXPENSES_CREATE, PERMISSIONS.EXPENSES_UPDATE,
+    PERMISSIONS.REPORTS_VIEW, PERMISSIONS.REPORTS_EXPORT,
+    PERMISSIONS.SYNC_VIEW, PERMISSIONS.SYNC_RETRY,
+    PERMISSIONS.BACKUPS_CREATE, PERMISSIONS.BACKUPS_RESTORE,
+    PERMISSIONS.SETTINGS_VIEW, PERMISSIONS.SETTINGS_BRANCH,
+  ],
+  [SYSTEM_ROLES.INVENTORY_MANAGER]: [
+    PERMISSIONS.PRODUCTS_VIEW, PERMISSIONS.PRODUCTS_CREATE, PERMISSIONS.PRODUCTS_UPDATE,
+    PERMISSIONS.PRODUCTS_IMPORT, PERMISSIONS.PRODUCTS_EXPORT,
+    PERMISSIONS.CATEGORIES_VIEW, PERMISSIONS.CATEGORIES_CREATE, PERMISSIONS.CATEGORIES_UPDATE,
+    PERMISSIONS.INVENTORY_VIEW, PERMISSIONS.INVENTORY_ADJUST, PERMISSIONS.INVENTORY_TRANSFER, PERMISSIONS.INVENTORY_COUNT,
+    PERMISSIONS.SUPPLIERS_VIEW, PERMISSIONS.SUPPLIERS_CREATE, PERMISSIONS.SUPPLIERS_UPDATE,
+    PERMISSIONS.PURCHASES_VIEW, PERMISSIONS.PURCHASES_CREATE, PERMISSIONS.PURCHASES_RECEIVE,
+    PERMISSIONS.REPORTS_VIEW,
+  ],
+  [SYSTEM_ROLES.CASHIER]: [
+    PERMISSIONS.PRODUCTS_VIEW,
+    PERMISSIONS.CATEGORIES_VIEW,
+    PERMISSIONS.INVENTORY_VIEW,
+    PERMISSIONS.SALES_VIEW, PERMISSIONS.SALES_CREATE,
+    PERMISSIONS.CUSTOMERS_VIEW, PERMISSIONS.CUSTOMERS_CREATE,
+    PERMISSIONS.CASH_SESSIONS_VIEW, PERMISSIONS.CASH_SESSIONS_OPEN, PERMISSIONS.CASH_SESSIONS_CLOSE,
+    PERMISSIONS.EXPENSES_VIEW, PERMISSIONS.EXPENSES_CREATE,
+    PERMISSIONS.SYNC_VIEW,
+  ],
+  [SYSTEM_ROLES.ACCOUNTANT]: [
+    PERMISSIONS.SALES_VIEW, PERMISSIONS.SALES_EXPORT,
+    PERMISSIONS.EXPENSES_VIEW, PERMISSIONS.EXPENSES_CREATE, PERMISSIONS.EXPENSES_UPDATE,
+    PERMISSIONS.CASH_SESSIONS_VIEW,
+    PERMISSIONS.REPORTS_VIEW, PERMISSIONS.REPORTS_EXPORT, PERMISSIONS.REPORTS_FINANCIAL,
+    PERMISSIONS.CUSTOMERS_VIEW,
+    PERMISSIONS.SUPPLIERS_VIEW,
+    PERMISSIONS.PURCHASES_VIEW,
+  ],
+  [SYSTEM_ROLES.AUDITOR]: [
+    PERMISSIONS.PRODUCTS_VIEW,
+    PERMISSIONS.CATEGORIES_VIEW,
+    PERMISSIONS.INVENTORY_VIEW,
+    PERMISSIONS.SALES_VIEW,
+    PERMISSIONS.CUSTOMERS_VIEW,
+    PERMISSIONS.SUPPLIERS_VIEW,
+    PERMISSIONS.PURCHASES_VIEW,
+    PERMISSIONS.USERS_VIEW,
+    PERMISSIONS.ROLES_VIEW,
+    PERMISSIONS.CASH_SESSIONS_VIEW,
+    PERMISSIONS.EXPENSES_VIEW,
+    PERMISSIONS.REPORTS_VIEW, PERMISSIONS.REPORTS_EXPORT, PERMISSIONS.REPORTS_FINANCIAL,
+    PERMISSIONS.SYNC_VIEW,
+    PERMISSIONS.AUDIT_LOGS_VIEW,
+    PERMISSIONS.SETTINGS_VIEW,
+    PERMISSIONS.DEVICES_VIEW,
+  ],
+};
+
+// ---- Sale Status ----
+
+export const SALE_STATUSES = {
+  COMPLETED: 'COMPLETED',
+  HELD: 'HELD',
+  CANCELLED: 'CANCELLED',
+  REFUNDED: 'REFUNDED',
+  PARTIALLY_REFUNDED: 'PARTIALLY_REFUNDED',
+} as const;
+
+// ---- Sync Status ----
+
+export const SYNC_STATUSES = {
+  PENDING: 'PENDING',
+  SYNCING: 'SYNCING',
+  SYNCED: 'SYNCED',
+  FAILED: 'FAILED',
+  CONFLICT: 'CONFLICT',
+  CANCELLED: 'CANCELLED',
+} as const;
+
+// ---- Payment Methods ----
+
+export const PAYMENT_METHODS = {
+  CASH: 'CASH',
+  CARD: 'CARD',
+  BANK_TRANSFER: 'BANK_TRANSFER',
+  WALLET: 'WALLET',
+} as const;
+
+// ---- Product Types ----
+
+export const PRODUCT_TYPES = {
+  STANDARD: 'STANDARD',
+  WEIGHTED: 'WEIGHTED',
+  SERVICE: 'SERVICE',
+  VARIANT: 'VARIANT',
+} as const;
+
+// ---- Movement Types ----
+
+export const MOVEMENT_TYPES = {
+  SALE: 'SALE',
+  PURCHASE: 'PURCHASE',
+  ADJUSTMENT: 'ADJUSTMENT',
+  TRANSFER_OUT: 'TRANSFER_OUT',
+  TRANSFER_IN: 'TRANSFER_IN',
+  DAMAGE: 'DAMAGE',
+  OPENING: 'OPENING',
+  RETURN: 'RETURN',
+} as const;
+
+// ---- Cash Session Status ----
+
+export const CASH_SESSION_STATUSES = {
+  OPEN: 'OPEN',
+  CLOSED: 'CLOSED',
+} as const;
+
+// ---- Cash Movement Types ----
+
+export const CASH_MOVEMENT_TYPES = {
+  SALE: 'SALE',
+  REFUND: 'REFUND',
+  DEPOSIT: 'DEPOSIT',
+  WITHDRAWAL: 'WITHDRAWAL',
+  EXPENSE: 'EXPENSE',
+} as const;
+
+// ---- Connection Status ----
+
+export const CONNECTION_STATUSES = {
+  ONLINE: 'ONLINE',
+  OFFLINE: 'OFFLINE',
+  UNSTABLE: 'UNSTABLE',
+  SERVER_UNAVAILABLE: 'SERVER_UNAVAILABLE',
+  SYNCING: 'SYNCING',
+} as const;
+
+// ---- Default Configuration ----
+
+export const DEFAULTS = {
+  CURRENCY_CODE: 'EGP',
+  CURRENCY_SUBUNIT: 100,
+  LOCALE: 'ar' as const,
+  DIRECTION: 'rtl' as const,
+  TAX_MODE: 'EXCLUSIVE' as const,
+  SYNC_INTERVAL_SECONDS: 30,
+  MAX_OFFLINE_DAYS: 30,
+  MAX_LOGIN_ATTEMPTS: 5,
+  MAX_SYNC_RETRIES: 10,
+  SYNC_BATCH_SIZE: 50,
+  RECEIPT_PAPER_WIDTH: 80,
+  LOCKOUT_DURATION_MINUTES: 30,
+  JWT_EXPIRY: '1h',
+  JWT_REFRESH_EXPIRY: '7d',
+  SESSION_EXPIRY_HOURS: 8,
+  PAGE_SIZE: 20,
+  MAX_PAGE_SIZE: 100,
+} as const;
+
+// ---- Sync Retry Delays (ms) ----
+
+export const SYNC_RETRY_DELAYS = [
+  5_000,     // 5 seconds
+  15_000,    // 15 seconds
+  45_000,    // 45 seconds
+  120_000,   // 2 minutes
+  300_000,   // 5 minutes
+  600_000,   // 10 minutes
+  900_000,   // 15 minutes
+  1_800_000, // 30 minutes
+  3_600_000, // 1 hour
+  3_600_000, // 1 hour (max)
+] as const;

@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist/main",
+    "rootDir": "./src/main",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  },
+  "include": ["src/main/**/*", "src/preload/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

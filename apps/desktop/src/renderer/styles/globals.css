@@ -1,0 +1,180 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================
+   Global Styles — Supermarket POS
+   ============================================ */
+
+@layer base {
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Remove default focus outlines, add custom ones */
+  *:focus {
+    outline: none;
+  }
+
+  *:focus-visible {
+    @apply ring-2 ring-primary-500 ring-offset-2 ring-offset-surface-950;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-900;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-600 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-surface-500;
+  }
+
+  /* Selection colors */
+  ::selection {
+    @apply bg-primary-600/40 text-white;
+  }
+
+  /* Number input - hide spinners */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+}
+
+@layer components {
+  /* Glass effect panels */
+  .glass-panel {
+    @apply bg-surface-800/60 backdrop-blur-xl border border-surface-700/50 rounded-xl;
+  }
+
+  /* Card component */
+  .card {
+    @apply bg-surface-800 border border-surface-700/50 rounded-xl p-4 transition-all duration-200;
+  }
+
+  .card:hover {
+    @apply border-surface-600/50;
+  }
+
+  /* Input base */
+  .input-base {
+    @apply w-full px-3 py-2 bg-surface-900 border border-surface-700 rounded-lg
+           text-surface-100 placeholder-surface-500
+           transition-all duration-200
+           focus:border-primary-500 focus:ring-1 focus:ring-primary-500/30;
+  }
+
+  /* Button base */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2
+           font-medium rounded-lg transition-all duration-200
+           focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-950
+           disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700
+           focus-visible:ring-primary-500 active:bg-primary-800;
+  }
+
+  .btn-secondary {
+    @apply btn bg-surface-700 text-surface-200 hover:bg-surface-600
+           focus-visible:ring-surface-500 active:bg-surface-500;
+  }
+
+  .btn-success {
+    @apply btn bg-accent-600 text-white hover:bg-accent-700
+           focus-visible:ring-accent-500 active:bg-accent-800;
+  }
+
+  .btn-danger {
+    @apply btn bg-red-600 text-white hover:bg-red-700
+           focus-visible:ring-red-500 active:bg-red-800;
+  }
+
+  .btn-ghost {
+    @apply btn bg-transparent text-surface-300 hover:bg-surface-800 hover:text-surface-100;
+  }
+
+  .btn-lg {
+    @apply px-6 py-3 text-lg;
+  }
+
+  .btn-sm {
+    @apply px-3 py-1.5 text-sm;
+  }
+
+  /* Status badge */
+  .badge {
+    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-green-500/20 text-green-400 border border-green-500/30;
+  }
+
+  .badge-warning {
+    @apply badge bg-amber-500/20 text-amber-400 border border-amber-500/30;
+  }
+
+  .badge-danger {
+    @apply badge bg-red-500/20 text-red-400 border border-red-500/30;
+  }
+
+  .badge-info {
+    @apply badge bg-blue-500/20 text-blue-400 border border-blue-500/30;
+  }
+
+  .badge-neutral {
+    @apply badge bg-surface-500/20 text-surface-400 border border-surface-500/30;
+  }
+
+  /* Stats card */
+  .stats-card {
+    @apply card flex flex-col gap-2;
+  }
+
+  .stats-card-value {
+    @apply text-2xl font-bold text-surface-100;
+  }
+
+  .stats-card-label {
+    @apply text-sm text-surface-400;
+  }
+}
+
+@layer utilities {
+  /* RTL-aware padding/margin */
+  .ps-4 {
+    padding-inline-start: 1rem;
+  }
+
+  .pe-4 {
+    padding-inline-end: 1rem;
+  }
+
+  .ms-4 {
+    margin-inline-start: 1rem;
+  }
+
+  .me-4 {
+    margin-inline-end: 1rem;
+  }
+}
